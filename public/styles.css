@@ -1,0 +1,417 @@
+:root{
+  /* Bone paper and near-black ink; colour lives in fills.
+   * Accent = what's yours: what you pick, what's due, what's suggested. It's
+   *   set from Settings (core.js computes --acc-bg, --acc-bar and --acc-ink).
+   * Green and red = right and wrong, always with ✓ / ✕ and a thick bar on the
+   *   left, so it never depends on colour alone. Orange = halfway.
+   * The red square of the logo is the only red that doesn't mean "wrong". */
+  color-scheme:light;
+  --bg:#f6f4ef; --card:#fff; --ink:#141414; --ink-2:#4a4844; --ink-3:#6f6c65;
+  --line:#e3dfd6; --line-2:#c9c4b8;
+  --brand:#e5321f;
+  --ok-bg:#ddf4e4; --ok-line:#17994f; --ok-ink:#0b4223;
+  --no-bg:#fde3df; --no-line:#de2c1c; --no-ink:#7d140b;
+  --warn-bg:#ffe8d4; --warn-line:#ea6a0c; --warn-ink:#6e2d05;
+  --acc:#ffd60a; --acc-bg:#fff4c2; --acc-bar:#f2bb05; --acc-ink:#141414;
+  --radius:0px;
+  --zoom:1;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#161615; --card:#1f1f1d; --ink:#f1efe8; --ink-2:#c2c0b6; --ink-3:#9c9a92;
+  --line:#33322f; --line-2:#4d4b46;
+  --ok-bg:#12301f; --ok-line:#2fbf6a; --ok-ink:#c4f2d4;
+  --no-bg:#3a1512; --no-line:#ff5a47; --no-ink:#ffd3cc;
+  --warn-bg:#3a2410; --warn-line:#ff8a2b; --warn-ink:#ffdcbd;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:400 16px/1.65 var(--sans);
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:840px; margin:0 auto; padding:24px 20px calc(60px + env(safe-area-inset-bottom)); zoom:var(--zoom)}
+::selection{background:var(--acc); color:var(--acc-ink)}
+a{color:inherit}
+
+code{font-family:var(--mono); font-size:.86em; background:var(--bg); border:1px solid var(--line);
+     padding:0 4px; border-radius:2px; word-break:break-word}
+pre{font-family:var(--mono); font-size:13px; line-height:1.6; background:var(--bg);
+    border:1px solid var(--line); border-radius:var(--radius); padding:12px 14px;
+    overflow-x:auto; margin:12px 0 0; -webkit-overflow-scrolling:touch}
+pre code{background:none; border:0; padding:0; font-size:inherit}
+
+button, a.btn{font:inherit; color:inherit; cursor:pointer; background:var(--card);
+       border:1px solid var(--line-2); border-radius:var(--radius); padding:8px 14px;
+       transition:border-color .12s, background-color .12s; text-decoration:none; display:inline-block}
+button:hover, a.btn:hover{border-color:var(--ink)}
+button:active{transform:translateY(1px)}
+:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+select, input[type=text], input[type=number]{font:inherit; color:inherit; background:var(--card); border:1px solid var(--line-2);
+       border-radius:var(--radius); padding:7px 10px; max-width:100%}
+select:hover, input:hover{border-color:var(--ink)}
+
+h1{font-size:21px; font-weight:700; letter-spacing:-.02em; margin:0;
+   display:flex; align-items:center; gap:9px}
+.logo{display:inline-block; width:13px; height:13px; background:var(--brand); border-radius:calc(var(--radius) / 3)}
+strong{font-weight:600}
+.muted{color:var(--ink-2)}
+.tiny{font-size:13px}
+.row{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.between{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+
+header{margin-bottom:16px}
+/* Tabs in mono caps: scaffolding, not content. The active one in the accent. */
+.tabs{display:flex; gap:0; margin-top:14px; border:1px solid var(--ink); width:max-content; max-width:100%;
+      border-radius:var(--radius); overflow:hidden}
+.tab{border:0; border-right:1px solid var(--ink); border-radius:0; padding:7px 15px; background:var(--card); white-space:nowrap;
+     font:500 12px/1.4 var(--mono); text-transform:uppercase; letter-spacing:.06em}
+.tab:last-child{border-right:0}
+.tab:hover{background:var(--acc-bg)}
+.tab.on{background:var(--acc); color:var(--acc-ink)}
+.tab[hidden]{display:none}
+
+.panel{background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+       padding:18px 20px; margin-bottom:14px}
+.filters{display:flex; gap:10px; align-items:center; flex-wrap:wrap; padding:14px 16px}
+.toggle{font-size:13px; padding:6px 12px; border-color:var(--line-2)}
+.toggle.on{background:var(--acc); border-color:var(--ink); color:var(--acc-ink)}
+
+/* Topics: a button that looks like a select and opens chips below. With
+ * something chosen it's tinted, so you can see the round is narrowed. */
+.tsum{display:inline-flex; align-items:center; gap:8px; padding:7px 10px; max-width:100%; min-width:0}
+.tsum span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.tsum i{flex:none; width:7px; height:7px; margin:0 3px 4px 2px; border:solid var(--ink-2);
+        border-width:0 1.5px 1.5px 0; transform:rotate(45deg); transition:transform .12s}
+.tsum.open i{transform:rotate(-135deg); margin:4px 3px 0 2px}
+.tsum.on{background:var(--acc-bg); border-color:var(--ink)}
+.topics{flex:1 1 100%; border-top:1px solid var(--line); padding-top:12px; margin-top:2px}
+.topics p{margin:0 0 10px}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip{font-size:13.5px; line-height:1.3; padding:7px 11px; min-height:36px; text-align:left}
+.chip.on{background:var(--acc); border-color:var(--ink); color:var(--acc-ink)}
+.chip.on:not(.all)::before{content:"✓ "; font-weight:700}
+.chip-h{flex:1 1 100%; margin-top:8px; font:500 11px/1.4 var(--mono); text-transform:uppercase;
+        letter-spacing:.06em; color:var(--ink-3)}
+
+.qmeta{display:flex; align-items:center; justify-content:space-between; gap:12px;
+       margin-bottom:14px; font:12px/1.4 var(--mono); color:var(--ink-3)}
+.tag{background:var(--ink); color:var(--card); padding:3px 8px; border-radius:var(--radius);
+     font:500 11px/1.4 var(--mono); text-transform:uppercase; letter-spacing:.05em; white-space:nowrap}
+.tag.t{background:var(--card); color:var(--ink-2); border:1px solid var(--line-2); padding:2px 7px}
+.tags{display:flex; gap:6px; align-items:center; flex-wrap:wrap; min-width:0}
+
+.stem{font-size:17.5px; line-height:1.5; font-weight:500; letter-spacing:-.005em; margin:0}
+
+/* Images: white background always, most diagrams come transparent with dark
+ * strokes. max-width + max-height without a fixed width: the box fits the
+ * image, so landscape diagrams don't get white bands on the sides. */
+.qfig{margin:14px 0 0}
+.qimg{display:block; max-width:100%; max-height:46vh; width:auto; height:auto;
+      border:1px solid var(--line); border-radius:var(--radius);
+      background:#fff; cursor:zoom-in}
+.qfig figcaption{margin-top:7px; font-size:12.5px; line-height:1.5; color:var(--ink-3)}
+.mmd{margin:14px 0 0; padding:12px; border:1px solid var(--line); border-radius:var(--radius);
+     background:var(--card); overflow-x:auto; text-align:center}
+.mmd svg{max-width:100%; height:auto}
+
+/* Options. State = fill + 4px left bar + ✓/✕ mark. The bar is a box-shadow
+ * so the text doesn't move. */
+.opts{margin-top:16px; display:flex; flex-direction:column; gap:8px}
+.opt{border:1px solid var(--line-2); border-radius:var(--radius); padding:11px 13px;
+     cursor:pointer; background:var(--card); width:100%; display:block; text-align:left}
+.opt:hover{border-color:var(--ink); background:var(--acc-bg)}
+.lab{display:flex; gap:11px; align-items:flex-start}
+.key{flex:0 0 22px; height:22px; border:1px solid var(--line-2); border-radius:calc(var(--radius) / 2);
+     display:flex; align-items:center; justify-content:center;
+     font:500 11px/1 var(--mono); text-transform:uppercase; color:var(--ink-2); margin-top:1px}
+.txt{flex:1; font-size:15px; line-height:1.55; white-space:pre-wrap; min-width:0}
+.mark{flex:0 0 auto; font-size:15px; font-weight:700; margin-top:1px}
+.opt.pick{border-color:var(--ink); background:var(--acc-bg)}
+.opt.pick .key{border-color:var(--ink); background:var(--acc); color:var(--acc-ink)}
+.opt.ok{border-color:var(--ok-line); background:var(--ok-bg); color:var(--ok-ink);
+        box-shadow:inset 4px 0 0 var(--ok-line)}
+.opt.ok .key{border-color:var(--ok-line); background:var(--ok-line); color:#fff}
+.opt.ok .mark{color:var(--ok-line)}
+.opt.no{border-color:var(--no-line); background:var(--no-bg); color:var(--no-ink);
+        box-shadow:inset 4px 0 0 var(--no-line)}
+.opt.no .key{border-color:var(--no-line); background:var(--no-line); color:#fff}
+.opt.no .mark{color:var(--no-line)}
+.opt.dim{opacity:.6}
+.why{margin:9px 0 0 33px; font-size:13.5px; line-height:1.6}
+.revealed .opt{cursor:default}
+.revealed .opt:not(.ok):not(.no):hover{background:var(--card); border-color:var(--line-2)}
+
+/* Grading. Each grade has its colour bar on top: red Again, orange Hard,
+ * green Good and Easy. The suggested one is in the accent. */
+.grade{margin-top:18px; padding-top:15px; border-top:1px solid var(--line)}
+.gs{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:10px}
+.g{text-align:center; padding:10px 4px; line-height:1.35; border-top-width:4px}
+.g[data-g="0"]{border-top-color:var(--no-line)}
+.g[data-g="3"]{border-top-color:var(--warn-line)}
+.g[data-g="4"], .g[data-g="5"]{border-top-color:var(--ok-line)}
+.g:hover{background:var(--acc-bg)}
+.g.sug{background:var(--acc); border-left-color:var(--ink); border-right-color:var(--ink);
+       border-bottom-color:var(--ink); color:var(--acc-ink)}
+.g.sug span{color:var(--acc-ink)}
+.g b{display:block; font-size:14px; font-weight:600}
+.g span{font:11px/1.4 var(--mono); color:var(--ink-3)}
+
+/* Listen: normal, slow, and the text as written. */
+.say{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:14px}
+.say button[data-say="1"]{background:var(--acc); border-color:var(--ink); color:var(--acc-ink)}
+.say-w{font-size:17px; font-weight:600; margin-left:4px}
+.say-o{flex:0 0 auto; padding:0 9px; height:24px; font-size:11px; line-height:1}
+
+/* Recall first: the stem alone, and two big buttons that reveal options. */
+.recall{margin-top:16px; padding:14px; border:1px dashed var(--line-2); border-radius:var(--radius)}
+.recall p{margin:0 0 10px}
+.rc{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.rc button{padding:14px 6px; line-height:1.35}
+.rc b{display:block; font-size:15px; font-weight:600}
+.rc span{font:11px/1.4 var(--mono); color:var(--ink-3)}
+#rc-y{background:var(--acc); border-color:var(--ink); color:var(--acc-ink)}
+#rc-y span{color:var(--acc-ink); opacity:.75}
+
+/* Open questions */
+textarea{font:inherit; color:inherit; background:var(--card); width:100%; margin-top:14px;
+         border:1px solid var(--line-2); border-radius:var(--radius); padding:11px 13px;
+         resize:vertical; min-height:130px; line-height:1.55}
+textarea:focus{outline:none; border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+button.ghost{background:none; border-color:var(--line-2)}
+button.tiny{padding:4px 10px}
+.answer{margin-top:14px; padding:11px 13px; background:var(--bg); border:1px solid var(--line);
+        border-radius:var(--radius); font-size:15px; line-height:1.6}
+.answer mark{background:var(--ok-bg); color:var(--ok-ink); border-bottom:2px solid var(--ok-line); padding:0 2px}
+.answer mark.partial{background:var(--warn-bg); color:var(--warn-ink); border-bottom-color:var(--warn-line)}
+.rubric{margin-top:12px; display:flex; flex-direction:column; gap:6px}
+.rb{display:grid; grid-template-columns:30px minmax(0,1fr); gap:10px; align-items:start;
+    padding:9px 11px; border:1px solid var(--line); border-radius:var(--radius); font-size:14.5px; line-height:1.5}
+.rb .st{width:28px; height:28px; padding:0; font-size:13px}
+.rb.covered{border-color:var(--ok-line); background:var(--ok-bg); color:var(--ok-ink); box-shadow:inset 4px 0 0 var(--ok-line)}
+.rb.partial{border-color:var(--warn-line); background:var(--warn-bg); color:var(--warn-ink); box-shadow:inset 4px 0 0 var(--warn-line)}
+.rb.missing{border-color:var(--no-line); background:var(--no-bg); color:var(--no-ink); box-shadow:inset 4px 0 0 var(--no-line)}
+.rb.unset{border-style:dashed; border-color:var(--line-2)}
+.rb .quote{font-size:13px; font-style:italic; margin-top:3px}
+.callout{margin-top:12px; padding:10px 13px; border-radius:var(--radius); font-size:14px; line-height:1.55}
+.callout ul{margin:6px 0 0; padding-left:18px}
+.callout li button{padding:1px 8px; margin-left:4px; font-size:11.5px}
+.callout.warn{background:var(--warn-bg); border:1px solid var(--warn-line); color:var(--warn-ink);
+              box-shadow:inset 4px 0 0 var(--warn-line)}
+.callout.no{background:var(--no-bg); border:1px solid var(--no-line); color:var(--no-ink);
+            box-shadow:inset 4px 0 0 var(--no-line)}
+.model{margin-top:12px; padding:10px 13px; border-left:4px solid var(--acc-bar);
+       background:var(--acc-bg); color:var(--ink); font-size:14.5px; line-height:1.6}
+.calibration p{margin:10px 0 0; font-size:14.5px; line-height:1.55}
+
+/* Progress: big tight numbers, mono label below. */
+.stats-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+            gap:0; margin-bottom:14px; border:1px solid var(--line); background:var(--card);
+            border-radius:var(--radius); overflow:hidden}
+.metric{background:var(--card); border-right:1px solid var(--line); padding:16px 18px}
+.metric:last-child{border-right:0}
+.metric:first-child{box-shadow:inset 0 4px 0 var(--acc)}
+.metric b{display:block; font-size:30px; font-weight:700; letter-spacing:-.03em; line-height:1.1;
+          font-variant-numeric:tabular-nums}
+.metric span{font:11px/1.4 var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--ink-3)}
+
+.key-sw{display:inline-block; width:9px; height:9px; margin:0 5px 0 2px; vertical-align:-1px}
+.key-sw.seen{background:var(--acc-bar)}
+.key-sw.mast{background:var(--ok-line)}
+.bars{display:flex; flex-direction:column; gap:10px; margin-top:14px}
+.bar-h{font:500 11px/1.4 var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--ink-3); margin-top:6px}
+.bar-row{display:grid; grid-template-columns:minmax(0,1fr) 120px 74px; gap:12px;
+         align-items:center; font-size:13.5px}
+.bar-row .name{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.bar-row.skipped .name em{font-style:normal; color:var(--warn-line)}
+.bar{height:8px; background:var(--line); overflow:hidden; display:flex; border-radius:calc(var(--radius) / 2)}
+.bar i{display:block; height:100%}
+.bar .mast{background:var(--ok-line)}
+.bar .seen{background:var(--acc-bar)}
+
+.forecast{display:flex; gap:6px; align-items:flex-end; margin-top:16px; height:96px}
+.fc{flex:1; display:flex; flex-direction:column; justify-content:flex-end;
+    align-items:center; gap:6px; min-width:0}
+.fc i{display:block; width:100%; background:var(--ink); min-height:2px}
+.fc:first-child i{background:var(--acc-bar)}
+.fc em{font-style:normal; font:10.5px/1.3 var(--mono); color:var(--ink-3); white-space:nowrap}
+.fc b{font-size:12px; font-weight:600; font-variant-numeric:tabular-nums}
+
+.stuck-item{border:1px solid var(--line); border-radius:var(--radius);
+            padding:12px 14px; margin-top:10px; box-shadow:inset 4px 0 0 var(--no-line)}
+.stuck-item .q{font-size:14.5px; line-height:1.5}
+.stuck-item .meta{font:12px/1.4 var(--mono); color:var(--ink-3); margin-top:6px}
+
+.done{text-align:center; padding:32px 10px}
+.done h2{font-size:20px; font-weight:700; letter-spacing:-.015em; margin:0 0 8px}
+.empty{padding:22px 4px; color:var(--ink-2); font-size:14px}
+
+.toast{position:fixed; left:50%; bottom:22px; transform:translateX(-50%);
+       background:var(--ink); color:var(--card); padding:10px 17px; border-left:4px solid var(--acc);
+       font-size:13.5px; opacity:0; pointer-events:none; transition:opacity .18s; z-index:9}
+.toast.on{opacity:1}
+
+button.link{background:none; border:none; padding:0; color:var(--ink-2); text-decoration:underline;
+            text-decoration-color:var(--acc-bar); text-decoration-thickness:2px; text-underline-offset:3px;
+            white-space:nowrap}
+button.link:hover{color:var(--ink)}
+
+/* ------------------------------------------------------- cheat sheet list */
+
+.card-list{display:flex; flex-direction:column; gap:10px; margin-top:14px}
+.list-card{display:flex; flex-direction:column; gap:5px; text-align:left; padding:13px 15px;
+           border-color:var(--line-2)}
+.list-card:hover{box-shadow:inset 4px 0 0 var(--acc)}
+.list-top{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.list-title{font-size:15.5px; font-weight:600}
+.list-sub{font-size:13.5px; line-height:1.5; color:var(--ink-2)}
+.list-meta{font:11.5px/1.4 var(--mono); color:var(--ink-3)}
+.pill{font:500 10.5px/1.4 var(--mono); text-transform:uppercase; letter-spacing:.05em;
+      padding:3px 7px; border-radius:var(--radius); white-space:nowrap;
+      background:var(--bg); border:1px solid var(--line-2); color:var(--ink-2)}
+.pill.due{background:var(--acc); border-color:var(--ink); color:var(--acc-ink)}
+.pill.ok{background:var(--ok-bg); border-color:var(--ok-line); color:var(--ok-ink)}
+
+/* ------------------------------------------------------------ cheat sheet */
+
+.sheet-h{font-size:20px; font-weight:700; letter-spacing:-.015em; margin:0 0 8px}
+.sh-meter{display:block; height:6px; background:var(--line); overflow:hidden}
+.sh-meter i{display:block; height:100%; background:var(--ok-line)}
+.sh-bar{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+        padding:10px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.sh-modes, .seg{display:inline-flex; gap:0; flex-wrap:wrap}
+.sh-modes .toggle, .seg .toggle{border-radius:0; border-right-width:0}
+.sh-modes .toggle:first-child, .seg .toggle:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.sh-modes .toggle:last-child, .seg .toggle:last-child{border-right-width:1px; border-radius:0 var(--radius) var(--radius) 0}
+.sh-modes .toggle.on, .seg .toggle.on{border-color:var(--ink)}
+.sh-modes .toggle.on + .toggle, .seg .toggle.on + .toggle{border-left-color:var(--ink)}
+.sh-help{margin:10px 0 0}
+.sh-body{font-size:15.5px; line-height:1.7}
+.sh-h{font-size:16.5px; font-weight:700; letter-spacing:-.01em; margin:28px 0 6px;
+      display:flex; align-items:center; gap:8px}
+.sh-h::before{content:""; flex:0 0 8px; height:8px; background:var(--acc-bar)}
+.sh-p{margin:8px 0}
+.sh-list{margin:8px 0; padding-left:22px}
+.sh-list li{margin:4px 0}
+.sh-list li::marker{color:var(--ink-3)}
+.sh-code{white-space:pre-wrap}
+.sh-tw{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:12px 0; border:1px solid var(--line); border-radius:var(--radius)}
+.sh-table{border-collapse:collapse; width:100%; font-size:14.5px; line-height:1.55}
+.sh-table th, .sh-table td{text-align:left; vertical-align:top; padding:8px 10px;
+                           border-bottom:1px solid var(--line)}
+.sh-table tr:last-child th, .sh-table tr:last-child td{border-bottom:0}
+.sh-table thead th{font:600 11px/1.4 var(--mono); text-transform:uppercase; letter-spacing:.05em;
+                   color:var(--ink-2); background:var(--bg); border-bottom-color:var(--line-2)}
+.sh-table tbody th{font-weight:600; color:var(--ink); width:28%}
+.sh-note{margin:14px 0; padding:10px 14px; border-left:4px solid var(--line-2);
+         background:var(--bg); font-size:15px}
+.sh-note-k{display:block; font:600 10.5px/1.4 var(--mono); text-transform:uppercase; letter-spacing:.06em;
+           color:var(--ink-3); margin-bottom:3px}
+.sh-note.trap{border-left-color:var(--warn-line); background:var(--warn-bg); color:var(--warn-ink)}
+.sh-note.trap .sh-note-k{color:var(--warn-ink)}
+.sh-note.why{border-left-color:var(--ok-line)}
+.sh-note.why .sh-note-k{color:var(--ok-line)}
+.sh-note.howto{border-left-color:var(--ink)}
+.sh-note.new, .sh-note.tip{border-left-color:var(--acc-bar); background:var(--acc-bg)}
+
+/* A covered hole keeps its text inside, transparent: it takes the same room
+ * before and after, and the paragraph doesn't jump. Covered = striped accent:
+ * your turn. Revealed and unanswered = plain tint. Answered = green/red with
+ * a thick underline that shows even if you can't tell the colours apart. */
+.hole{border-bottom:1px dotted var(--ink-3)}
+.hole.cov, .hole.rev, .hole.yes, .hole.no{border-bottom:none; border-radius:2px; padding:0 4px;
+  -webkit-box-decoration-break:clone; box-decoration-break:clone}
+.hole.cov{color:transparent; cursor:pointer; user-select:none;
+  background:repeating-linear-gradient(135deg, var(--acc) 0 6px, var(--acc-bg) 6px 10px)}
+.hole.cov code, .hole.cov b{color:transparent; background:none; border-color:transparent}
+.hole.cov:hover{outline:1px solid var(--ink)}
+.hole.rev{background:var(--acc-bg); color:var(--ink); outline:1px solid var(--ink); cursor:pointer}
+.hole.yes{background:var(--ok-bg); color:var(--ok-ink); box-shadow:inset 0 -2px 0 var(--ok-line)}
+.hole.no{background:var(--no-bg); color:var(--no-ink); box-shadow:inset 0 -2px 0 var(--no-line)}
+
+.sh-ask{position:fixed; left:50%; bottom:calc(16px + env(safe-area-inset-bottom)); transform:translateX(-50%);
+        display:flex; align-items:center; gap:10px; padding:10px 12px 10px 16px; z-index:20;
+        background:var(--card); border:1px solid var(--ink); border-radius:var(--radius);
+        box-shadow:4px 4px 0 var(--ink); font-size:15px}
+.sh-ask[hidden]{display:none}
+.sh-ask button{padding:8px 16px; font-weight:600}
+.sh-ask kbd{font-family:var(--mono); font-size:11px; font-weight:400; color:inherit; opacity:.7; margin-left:4px}
+#sh-yes{background:var(--ok-line); border-color:var(--ok-line); color:#fff}
+#sh-no{background:var(--no-line); border-color:var(--no-line); color:#fff}
+
+/* --------------------------------------------------------------- settings */
+
+.set-h{font-size:17px; font-weight:700; letter-spacing:-.01em; margin:0}
+.set-sub{margin:4px 0 0}
+.set-row, .course-row{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:center;
+         padding:13px 0; border-top:1px solid var(--line)}
+.set-sec .set-row:first-of-type, .set-sub + .set-row{margin-top:10px}
+.set-row.sub{border-top:0; padding-top:0; padding-left:16px; box-shadow:inset 2px 0 0 var(--line)}
+.set-l b{display:block; font-size:14.5px; font-weight:600}
+.set-l span{display:block; font-size:13px; line-height:1.5; color:var(--ink-2); margin-top:2px}
+.set-c{display:flex; align-items:center; gap:10px; justify-content:flex-end; flex-wrap:wrap}
+.set-c input[type=text]{width:240px; font-family:var(--mono); font-size:13px}
+.set-c input[type=number]{width:110px}
+.course-row.off .set-l{opacity:.55}
+.warn-t{font-style:normal; color:var(--warn-line)}
+.path{display:inline-block; max-width:340px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; vertical-align:middle}
+
+/* A switch: track and knob. On = accent. */
+.switch{position:relative; width:42px; height:24px; padding:0; border-radius:calc(var(--radius) + 1px);
+        background:var(--line); border-color:var(--line-2); flex:none}
+.switch i{position:absolute; top:3px; left:3px; width:16px; height:16px; background:var(--card);
+          border:1px solid var(--line-2); border-radius:calc(var(--radius) / 2); transition:left .12s}
+.switch.on{background:var(--acc); border-color:var(--ink)}
+.switch.on i{left:21px; border-color:var(--ink)}
+
+.swatches{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end}
+.swatch{width:28px; height:28px; padding:0; border:1px solid var(--line-2); border-radius:var(--radius)}
+.swatch.on{outline:2px solid var(--ink); outline-offset:2px}
+.swatch.custom{position:relative; display:flex; align-items:center; justify-content:center; cursor:pointer;
+               background:var(--card); font-weight:600; overflow:hidden}
+.swatch.custom input{position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%}
+
+.prompts{display:flex; flex-direction:column; gap:8px; margin-top:12px}
+.prompt-row{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; align-items:center;
+            padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius); background:var(--bg)}
+.prompt-row b{display:block; font-size:13.5px}
+.prompt-row span{display:block; font:12.5px/1.5 var(--mono); color:var(--ink-2)}
+
+/* ---------------------------------------------------------------- narrow */
+
+@media (max-width:560px){
+  .wrap{padding:16px 14px 40px}
+  .panel{padding:15px 15px}
+  .stem{font-size:16.5px}
+  .opt{padding:12px}
+  .gs{grid-template-columns:repeat(2,1fr) !important}
+  .g{padding:12px 4px}
+  .why{margin-left:0}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .metric{border-bottom:1px solid var(--line)}
+  .bar-row{grid-template-columns:minmax(0,1fr) 74px 62px; gap:8px; font-size:13px}
+  .forecast{height:80px}
+  .fc em{font-size:10px}
+  /* Course and topic share a row, so the question starts above the fold. */
+  .filters{gap:8px; padding:12px}
+  .filters > #f-course, .filters > .tsum{flex:1 1 40%; min-width:0}
+  .qmeta > span:last-child{white-space:nowrap}
+  .tsum{justify-content:space-between}
+  .chip{min-height:40px}
+  /* Tabs fill the width in equal parts instead of overflowing. */
+  .tabs{width:100%}
+  .tab{flex:1 1 0; min-width:0; padding:7px 4px; letter-spacing:.02em; text-align:center; font-size:11px}
+  .sh-body{font-size:15px}
+  .sh-table{font-size:13.5px}
+  .sh-table th, .sh-table td{padding:7px 6px}
+  .sh-ask{left:12px; right:12px; transform:none; justify-content:space-between}
+  .sh-ask kbd{display:none}
+  .set-row, .course-row{grid-template-columns:1fr; gap:8px}
+  .set-c{justify-content:flex-start}
+  .swatches{justify-content:flex-start}
+  .set-c input[type=text]{width:100%}
+  .path{max-width:100%}
+}

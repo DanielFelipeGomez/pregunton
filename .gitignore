@@ -1,0 +1,6 @@
+# Your data and your machine's config never go to the template repo.
+/data/
+/local.json
+*.tmp
+.DS_Store
+/.claude/settings.local.json

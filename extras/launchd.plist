@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Starts Preguntón at login and keeps it running. See SETUP.md, "At login, macOS".
+     Replace __NODE__, __REPO__ and __HOME__ with absolute paths. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.pregunton.server</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__NODE__</string>
+    <string>__REPO__/server.js</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>__REPO__</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>__HOME__/Library/Logs/pregunton.log</string>
+  <key>StandardErrorPath</key>
+  <string>__HOME__/Library/Logs/pregunton.log</string>
+</dict>
+</plist>

@@ -1,0 +1,256 @@
+{
+  "id": "tour",
+  "title": "Learning how to learn",
+  "subtitle": "A short tour of Preguntón: every question type, on the science behind it.",
+  "speak": "en-US",
+  "topics": [
+    { "id": "spacing", "label": "Spaced repetition" },
+    { "id": "retrieval", "label": "Retrieval practice" },
+    { "id": "interleaving", "label": "Interleaving and desirable difficulties" },
+    { "id": "how-sm2", "label": "How the scheduler works (SM-2)" }
+  ],
+  "questions": [
+    {
+      "id": "ebbinghaus-pronunciation",
+      "topic": "spacing",
+      "q": "Hermann Ebbinghaus, the first person to measure forgetting, was German. Listen: which respelling matches how his surname is pronounced?",
+      "say": "Ebbinghaus",
+      "speak": "de-DE",
+      "sayFirst": true,
+      "recall": false,
+      "options": [
+        { "t": "EB-ing-house", "ok": true, "why": "Stress on the first syllable, and German *-haus* sounds just like English *house*. It even means the same thing." },
+        { "t": "eb-BING-hoss", "ok": false, "why": "German names like this one put the stress on the first syllable, and *au* is the diphthong in *house*, not a short o." },
+        { "t": "EB-ing-hoos", "ok": false, "why": "In German, *au* is always 'ow' as in *house*. An 'oo' sound would be spelled with a plain *u*." },
+        { "t": "EE-bing-gaws", "ok": false, "why": "A German *e* before a double consonant is short, like the e in *bed*, not 'ee'. And *au* is 'ow', not 'aw'." }
+      ]
+    },
+    {
+      "id": "ebbinghaus-material",
+      "topic": "spacing",
+      "q": "To measure forgetting cleanly, what did Ebbinghaus mostly memorize in the experiments he published in 1885?",
+      "options": [
+        { "t": "Lists of nonsense syllables like DAX", "ok": true, "why": "He wanted material with no prior meaning, so every list started equally unknown. He tested himself, relearning lists after different delays and measuring how much effort the second learning saved." },
+        { "t": "Lists of common German nouns and verbs", "ok": false, "why": "Real words carry meaning and associations, which make some items far easier than others. That's exactly the noise he set out to remove." },
+        { "t": "Word pairs learned by groups of students", "ok": false, "why": "He had no student subjects: Ebbinghaus was his own and only subject. His forgetting curve has since been replicated with other people." },
+        { "t": "Short poems chosen for their strong rhythm", "ok": false, "why": "He did learn some poetry (stanzas of Byron's *Don Juan*) as a comparison, and found it much quicker to learn than nonsense. Meaning helps memory, which is why poems couldn't be his main yardstick." }
+      ]
+    },
+    {
+      "id": "forgetting-curve-reviews",
+      "topic": "spacing",
+      "q": "The chart shows the same material with no reviews (dark) and with three reviews (green). Apart from memory jumping back up, what changes after each review?",
+      "img": "tour/forgetting-curve.svg",
+      "imgCaption": "An illustration of the shape, not measured data.",
+      "options": [
+        { "t": "The next decline is slower than the last", "ok": true, "why": "Each successful retrieval makes the memory more durable, so the curve after it is flatter. That's why the gaps between reviews can keep growing: you need each memory less and less often." },
+        { "t": "Each decline is just as steep as the first one", "ok": false, "why": "If that were true you'd need reviews at the same short rhythm forever. Spaced repetition works precisely because forgetting slows after each review." },
+        { "t": "Memory stops declining after the third review", "ok": false, "why": "Forgetting slows down but never stops. Even well-learned material fades without use, just over months instead of days." },
+        { "t": "The peaks get a bit lower with every review", "ok": false, "why": "In the chart each review brings recall back to full. What changes is how fast it decays afterwards, not the height of the peak." }
+      ]
+    },
+    {
+      "id": "spacing-same-total-time",
+      "topic": "spacing",
+      "q": "Same material, same total time: one 3-hour session, or three 1-hour sessions on different days. Which gives better recall a month later?",
+      "options": [
+        { "t": "Three 1-hour sessions spread over days", "ok": true, "why": "This is the spacing effect, one of the most replicated findings in memory research. The same effort, spread out, lasts longer." },
+        { "t": "One 3-hour session, while focus is high", "ok": false, "why": "Massed study can look great on a test the same day, but it fades faster. Long sessions also tend to lose focus toward the end." },
+        { "t": "Both equal, since total time is the same", "ok": false, "why": "Total time matters, but so does how it's distributed. Spacing beats massing even when the minutes are identical." },
+        { "t": "Depends only on how hard you concentrate", "ok": false, "why": "Concentration helps either way, but it doesn't cancel the spacing effect: focused cramming still fades faster than focused spaced study." }
+      ]
+    },
+    {
+      "id": "forgetting-statements",
+      "topic": "spacing",
+      "q": "Which of these statements about forgetting is accurate?",
+      "recall": false,
+      "options": [
+        { "t": "Most forgetting happens soon after learning", "ok": true, "why": "Ebbinghaus found the curve drops steeply at first and then flattens out. The first hours and days are where a review pays off most." },
+        { "t": "Forgetting is steady: the same loss each day", "ok": false, "why": "A straight line would mean day 30 loses as much as day 1. The real curve is steep early and shallow later." },
+        { "t": "Once learned well, nothing is forgotten", "ok": false, "why": "Even well-learned material fades without use; it just fades more slowly. That's why mature cards still come back, months apart." },
+        { "t": "Forgetting only starts after about a week", "ok": false, "why": "It starts right away. Waiting a week for your first review means relearning much of it rather than reviewing it." }
+      ]
+    },
+    {
+      "id": "cramming-vs-spacing-open",
+      "topic": "spacing",
+      "type": "open",
+      "q": "A friend crams the night before every exam and passes. Explain what they lose by studying that way, and what would change if they spread the same hours over several days.",
+      "rubric": [
+        { "id": "fades-fast", "p": "Crammed material is forgotten quickly after the exam: massed study gives short-term performance, not durable memory", "w": "must" },
+        { "id": "spacing-lasts", "p": "Spreading the same hours over several days leads to better long-term retention (the spacing effect)", "w": "must" },
+        { "id": "effortful-review", "p": "Each spaced session comes after some forgetting, so retrieving the material takes effort, and that effort makes the memory more durable", "w": "must" },
+        { "id": "feels-fine", "p": "Cramming feels effective because performance right after studying is high, which hides how little lasts", "w": "nice" },
+        { "id": "relearn-cost", "p": "Anything needed later (the next course, real work) will have to be relearned", "w": "nice" }
+      ],
+      "answer": "Cramming works for the exam because everything is fresh, but most of it is gone within days or weeks, so whatever builds on it later has to be relearned. Spreading the same hours over several days gives much better long-term retention: that's the spacing effect. Each session starts after some forgetting, so pulling the material back takes effort, and that effortful retrieval makes the memory decay more slowly next time. Cramming hides all this because it feels fluent and the next-day score looks fine."
+    },
+    {
+      "id": "roediger-karpicke-2006",
+      "topic": "retrieval",
+      "q": "In Roediger & Karpicke (2006), students read a prose passage, then either reread it or took a recall test on it, with no feedback. What did the final tests show?",
+      "options": [
+        { "t": "Rereading won at 5 minutes; testing at 2 days and a week", "ok": true, "why": "The crossover is the lesson: rereading boosts short-term performance, while retrieval builds what lasts. In a follow-up, students who only reread predicted they'd remember the most, which is exactly the trap." },
+        { "t": "Testing won at every delay, even after 5 minutes", "ok": false, "why": "Right after study, rereading actually came out ahead. The testing advantage appeared at the longer delays, which are the ones that matter." },
+        { "t": "Rereading won at every delay, since tests gave no feedback", "ok": false, "why": "Even without feedback, the act of retrieving strengthened memory. Feedback helps further, but it wasn't needed to beat rereading after a delay." },
+        { "t": "Both groups did the same once study time matched", "ok": false, "why": "Time was matched, and the groups still differed, in opposite directions at the short and long delays." }
+      ]
+    },
+    {
+      "id": "recall-mode-why",
+      "topic": "retrieval",
+      "q": "Preguntón's recall mode asks you to answer in your head before it shows the options. Why is that better practice?",
+      "options": [
+        { "t": "Recalling is harder than recognizing, and builds more", "ok": true, "why": "Recognition only needs a sense of familiarity once you see the answer. Recall makes you rebuild it from a cue, which is what you'll need later, and the extra effort is what makes it stick." },
+        { "t": "It's quicker, so you get through more cards per session", "ok": false, "why": "It's usually slower, not quicker. Speed isn't the goal here: the effortful retrieval is what you're paying for." },
+        { "t": "It stops you from finding the answer by elimination", "ok": false, "why": "Elimination is a real weakness of multiple choice, but it's a side benefit. The main gain is that recall is a stronger form of retrieval practice." },
+        { "t": "Seeing wrong options first could plant false memories", "ok": false, "why": "Plausible wrong options can occasionally be learned as true, but feedback after answering largely fixes that. It isn't the reason recall mode exists." }
+      ]
+    },
+    {
+      "id": "fluency-illusion",
+      "topic": "retrieval",
+      "q": "After rereading a chapter three times, it feels easy and familiar. Why is that feeling a weak sign that you've learned it?",
+      "options": [
+        { "t": "Familiarity shows you can recognize it, not recall it", "ok": true, "why": "Rereading makes the text fluent to process, and the brain reads fluency as knowing. The honest check is to close the book and try to produce it." },
+        { "t": "Feelings mislead, so only the hours spent count", "ok": false, "why": "Hours aren't a good measure either: an hour of rereading can teach less than a shorter session of self-testing." },
+        { "t": "Rereading only works if you also highlight key parts", "ok": false, "why": "Highlighting has shown little benefit in reviews of study techniques. Adding it doesn't turn recognition into recall." },
+        { "t": "The feeling is right: rereading works well", "ok": false, "why": "Rereading isn't useless, but it's one of the least efficient techniques. The confident feeling it produces is the main reason people overuse it." }
+      ]
+    },
+    {
+      "id": "testing-vs-rereading-open",
+      "topic": "retrieval",
+      "type": "open",
+      "q": "Explain in your own words why testing yourself teaches you more than rereading, even though rereading often feels more productive.",
+      "rubric": [
+        { "id": "retrieval-strengthens", "p": "Retrieving information strengthens the memory and makes it easier to retrieve again later: a test is a learning event, not just a measurement", "w": "must" },
+        { "id": "rereading-familiarity", "p": "Rereading mostly builds familiarity (recognition), which doesn't train the ability to recall without the text in front of you", "w": "must" },
+        { "id": "feeling-misleads", "p": "Rereading feels better because the material becomes fluent, but that feeling is a poor predictor of later recall", "w": "must" },
+        { "id": "shows-gaps", "p": "Testing also reveals what you don't know yet, so you can focus on it", "w": "nice" },
+        { "id": "after-delay", "p": "The advantage shows up after a delay; right after studying, rereading can look as good or better", "w": "nice" }
+      ],
+      "answer": "Pulling something out of memory changes the memory: each successful retrieval makes it stronger and easier to find next time, so a test is itself a way of learning. Rereading mostly makes the text familiar, and familiarity only helps you recognize the material when it's in front of you, not produce it from a question. Rereading feels more productive because the text gets fluent, and we mistake that fluency for knowing it. Testing also shows you the gaps, and its advantage appears after a delay: in Roediger & Karpicke (2006), rereading won at 5 minutes but testing won at 2 days and a week."
+    },
+    {
+      "id": "rohrer-taylor-2007",
+      "topic": "interleaving",
+      "q": "In Rohrer & Taylor (2007), students practised finding the volumes of different solids, either blocked by type or mixed together. What happened?",
+      "img": "tour/blocked-vs-interleaved.svg",
+      "imgCaption": "Same problems, two orders.",
+      "options": [
+        { "t": "Blocked won in practice; mixed won a week later", "ok": true, "why": "Blocked practice looks great while you're doing it, because you already know which formula is coming. Mixed practice forced students to choose the method, and that paid off on the delayed test." },
+        { "t": "Mixed won during practice and a week later", "ok": false, "why": "During practice the mixed group actually scored lower. The benefit only appeared on the delayed test, which is why interleaving is so easy to dismiss." },
+        { "t": "Blocked won at both points thanks to fluency", "ok": false, "why": "Fluency within a block is real, but it didn't last: a week later the blocked group was well behind." },
+        { "t": "No difference: same problems, same time", "ok": false, "why": "Same problems, same time, different order, and a large difference on the final test. The order itself mattered." }
+      ]
+    },
+    {
+      "id": "why-interleaving-works",
+      "topic": "interleaving",
+      "q": "What is the main reason that interleaving different problem types helps?",
+      "options": [
+        { "t": "You practise choosing which method fits each problem", "ok": true, "why": "In a block, the method is given away by the chapter you're in. Mixed problems make you identify the type first, which is exactly what an exam or real work asks of you." },
+        { "t": "Variety keeps you motivated, so you study for longer", "ok": false, "why": "Variety may feel nicer, but the gains show up even when study time is identical. The benefit is about what you practise, not motivation." },
+        { "t": "Each type gets more repetitions than in a block", "ok": false, "why": "The number of problems per type usually stays the same. What changes is the order, which also adds some spacing between problems of the same type." },
+        { "t": "It's easier, so you make fewer errors along the way", "ok": false, "why": "It's harder: people make more errors during interleaved practice. That's why it counts as a desirable difficulty." }
+      ]
+    },
+    {
+      "id": "desirable-difficulties-which",
+      "topic": "interleaving",
+      "q": "Robert Bjork called some study conditions \"desirable difficulties\": harder in the moment, better for long-term learning. Which of these qualify?",
+      "multi": true,
+      "options": [
+        { "t": "Spacing your reviews out over days", "ok": true, "why": "Each review is harder after a gap because some forgetting has happened, and that extra retrieval effort is what improves retention." },
+        { "t": "Mixing problem types within one session", "ok": true, "why": "Interleaving makes practice feel worse and produces more errors along the way, yet it leads to better performance on delayed tests." },
+        { "t": "Rereading notes until they feel familiar", "ok": false, "why": "This is the comfortable option, not a difficulty. It mostly builds familiarity; testing yourself on the same notes would be the desirable difficulty." },
+        { "t": "Copying the answer out several times", "ok": false, "why": "Copying takes effort, but you never retrieve anything: the answer is in front of you. Effort alone isn't what makes a difficulty desirable." }
+      ]
+    },
+    {
+      "id": "what-makes-difficulty-desirable",
+      "topic": "interleaving",
+      "q": "What makes a difficulty \"desirable\" in Bjork's sense, rather than just a difficulty?",
+      "options": [
+        { "t": "You can overcome it, and the effort builds memory", "ok": true, "why": "Both parts matter: the extra work has to go into retrieving or making sense of the material, and you have to be able to succeed. A task you can't do at all is just a difficulty." },
+        { "t": "It makes practice feel slow and frustrating", "ok": false, "why": "Feeling slow is a side effect, not the definition. Plenty of slow, frustrating conditions (a noisy room, a confusing explanation) don't help memory at all." },
+        { "t": "Any extra effort counts, if you push through it", "ok": false, "why": "Effort that doesn't involve retrieving or organising the material, like copying text out, adds work without adding learning." },
+        { "t": "It's set at the hardest level you can find", "ok": false, "why": "Too hard backfires: if you can't retrieve anything, you learn little from the attempt. Desirable difficulties are pitched within reach." }
+      ]
+    },
+    {
+      "id": "sm2-author",
+      "topic": "how-sm2",
+      "q": "Who designed SM-2, the 1987 scheduling algorithm this app is built on?",
+      "say": "Piotr Woźniak",
+      "speak": "pl-PL",
+      "options": [
+        { "t": "Piotr Woźniak", "ok": true, "why": "A Polish researcher who wrote SM-2 for his SuperMemo program; it later became the starting point for Anki and many other flashcard apps. Listen: the Polish W sounds like an English V, roughly 'PYOH-tr VOZH-nyahk'." },
+        { "t": "Sebastian Leitner", "ok": false, "why": "Leitner designed the Leitner box: paper flashcards that move to a less frequently reviewed box each time you get them right. Same spacing idea, but no ease factor or computed intervals." },
+        { "t": "Hermann Ebbinghaus", "ok": false, "why": "Ebbinghaus measured forgetting in 1885 and noticed that spreading out repetitions helps, but he never built a scheduler. SM-2 came about a century later." },
+        { "t": "Robert Bjork", "ok": false, "why": "Bjork's work on desirable difficulties helps explain why spaced retrieval works so well, but he didn't create SM-2." }
+      ]
+    },
+    {
+      "id": "ease-factor-meaning",
+      "topic": "how-sm2",
+      "q": "Every card has an ease factor that starts at 2.5. Once a card is past its first two reviews, what does that number do?",
+      "options": [
+        { "t": "Multiplies the interval each time you pass", "ok": true, "why": "A card at 10 days with ease 2.5 comes back in 25. Ease never drops below 1.3, so even a stubborn card's intervals keep growing, just more slowly." },
+        { "t": "Sets a fixed gap of 2.5 days between reviews", "ok": false, "why": "Fixed gaps would never grow, and spaced repetition depends on gaps that widen as the memory gets sturdier." },
+        { "t": "Adds 2.5 days to the gap after each review", "ok": false, "why": "That's additive growth: 10, 12.5, 15… SM-2's growth is multiplicative, so gaps for well-known cards widen much faster." },
+        { "t": "Rates how hard the card is, on a 1–5 scale", "ok": false, "why": "Ease is linked to difficulty (hard cards end up with lower ease), but it isn't a rating. It's the multiplier the scheduler applies to the interval." }
+      ]
+    },
+    {
+      "id": "next-interval-code",
+      "topic": "how-sm2",
+      "q": "A card has `reps: 4`, `interval: 10` and `ease: 2.3`. You press **Good**. What does `nextInterval` return?",
+      "code": "// Simplified from this app's scheduler\nfunction nextInterval(card, grade) {\n  if (grade === \"again\") return 1;\n  const reps = card.reps + 1;\n  if (reps === 1) return { hard: 1, good: 2, easy: 4 }[grade];\n  if (reps === 2) return { hard: 3, good: 6, easy: 10 }[grade];\n  return Math.round(card.interval * card.ease);\n}",
+      "options": [
+        { "t": "23 days", "ok": true, "why": "reps becomes 5, so neither early branch applies: 10 × 2.3 = 23. At this stage the grade only picks the branch; the size comes from the current interval and the ease." },
+        { "t": "25 days", "ok": false, "why": "That's 10 × 2.5, the starting ease. This card's ease has already dropped to 2.3, probably after a lapse or a few Hard answers." },
+        { "t": "6 days", "ok": false, "why": "6 is Good's value on the second review only (reps === 2). This card is well past that." },
+        { "t": "12 days", "ok": false, "why": "That's 10 + 2.3, rounded: adding the ease instead of multiplying by it." }
+      ]
+    },
+    {
+      "id": "again-lowers-ease",
+      "topic": "how-sm2",
+      "q": "Follow one review step in the diagram. You press **Again** on a mature card whose ease is 2.5. What happens to its ease?",
+      "diagram": "flowchart LR\n  A[\"You answer\"] --> B{\"Your grade\"}\n  B -->|\"Again\"| C[\"Reps reset to 0, ease - 0.2\"]\n  B -->|\"Hard, Good or Easy\"| D[\"Reps + 1, ease adjusted\"]\n  C --> E[\"Start again from the first step\"]\n  D --> F[\"New interval\"]\n  F --> G[\"Due date = today + interval\"]",
+      "options": [
+        { "t": "It drops to 2.3", "ok": true, "why": "A lapse costs 0.2 of ease, and ease never goes below the 1.3 floor. Reps also reset, so the card climbs the short first steps again before big multiplications resume." },
+        { "t": "It stays at 2.5", "ok": false, "why": "Some SM-2 variants only reset the reps and leave ease alone. Here a lapse is also taken as evidence the card is harder than estimated, so its ease drops." },
+        { "t": "It resets to 1.3", "ok": false, "why": "1.3 is the floor, not the penalty. One lapse costs 0.2; it takes several lapses to reach the floor." },
+        { "t": "It halves to 1.25", "ok": false, "why": "Halving would be far harsher, and 1.25 is below the 1.3 floor, which ease is never allowed to cross." }
+      ]
+    },
+    {
+      "id": "good-keeps-ease",
+      "topic": "how-sm2",
+      "q": "You answer a card correctly and press **Good**. What happens to its ease factor?",
+      "options": [
+        { "t": "It stays exactly the same", "ok": true, "why": "In SM-2's formula, Good is the neutral grade: it changes ease by zero. The interval still grows, because it's multiplied by that unchanged ease." },
+        { "t": "It rises a little, by 0.1", "ok": false, "why": "That's Easy. Only Easy raises ease, which is why pressing Easy on cards that weren't really easy makes them come back too late." },
+        { "t": "It drops a little, by 0.14", "ok": false, "why": "That's Hard. Use Hard when you got it right but it took real effort; the card's intervals will grow a bit more slowly." },
+        { "t": "It goes back to 2.5", "ok": false, "why": "Ease never resets. It's a running estimate built from every grade the card has received." }
+      ]
+    },
+    {
+      "id": "good-every-time-third-interval",
+      "topic": "how-sm2",
+      "q": "You press **Good** on a new card every time it comes up. The first two intervals are 2 and 6 days. What is the third?",
+      "imgReveal": "tour/interval-ladder.svg",
+      "imgRevealCaption": "Good every time: ease stays at 2.5, so 2 → 6 → 15 → 38 → 95 days.",
+      "options": [
+        { "t": "15 days", "ok": true, "why": "From the third review on, the interval is the previous one times the ease: 6 × 2.5 = 15. Then 38, then 95: by the fifth review the card is coming back about every three months." },
+        { "t": "12 days", "ok": false, "why": "Doubling feels natural, but the multiplier is the ease (2.5 to start), not 2." },
+        { "t": "10 days", "ok": false, "why": "10 is what Easy gives on the second review. Good gives 6 there, and from the third review on the formula takes over." },
+        { "t": "8 days", "ok": false, "why": "That's 6 + 2, adding the last two intervals. SM-2 multiplies by the ease instead." }
+      ]
+    }
+  ]
+}

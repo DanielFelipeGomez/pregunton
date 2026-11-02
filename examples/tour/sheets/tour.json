@@ -1,0 +1,63 @@
+{
+  "id": "tour",
+  "subtitle": "The key facts of the tour, with the important bits hidden. Say each one before you reveal it.",
+  "sheets": [
+    {
+      "topic": "spacing",
+      "summary": "Why forgetting is fast at first, and why spread-out reviews beat cramming.",
+      "blocks": [
+        { "h": "The forgetting curve" },
+        { "p": "In {{eb-year|1885}} Hermann Ebbinghaus published the first experimental study of memory. His only subject was himself, and his material was lists of {{eb-material|nonsense syllables}}, chosen because they carried no prior meaning." },
+        { "img": "tour/forgetting-curve.svg", "caption": "Same material, with and without reviews. An illustration of the shape, not measured data." },
+        { "p": "Forgetting is fastest {{fast-when|right after learning}} and then slows down. After each successful review, the next decline is {{after-review|flatter (slower)}}, which is why the gaps between reviews can keep growing." },
+        { "note": "Ebbinghaus also learned stanzas of Byron's Don Juan and found them far quicker to memorize than nonsense syllables. Meaning is a powerful memory aid, which is exactly why he kept it out of his experiments.", "kind": "fun" },
+        { "h": "Spacing vs cramming" },
+        { "table": {
+          "head": ["", "Cramming (massed)", "Spacing (distributed)"],
+          "rows": [
+            ["How it feels while studying", "{{massed-feel|easy and fluent}}", "harder, more effortful"],
+            ["Test the next day", "often fine", "fine"],
+            ["Weeks later", "{{massed-later|most of it is gone}}", "much more is kept"]
+          ]
+        } },
+        { "p": "The same total study time, spread over several sessions, gives better long-term retention. This is called the {{spacing-effect|spacing effect}}." },
+        { "note": "The longer you need to remember something, the {{gap-longer|longer}} the gaps between reviews can be. Exam in a week: review over days. Something for life: let gaps grow into months.", "kind": "tip" },
+        { "h": "How this app spaces your reviews" },
+        { "code": "// from the third review on\ninterval = previous interval × {{code-ease|ease}}\n// ease starts at {{ease-start|2.5}} and never drops below 1.3" },
+        { "list": [
+          "Review when a card is starting to fade, not while it still feels fresh.",
+          "Short daily sessions beat one long weekly session.",
+          "Add new cards gradually: today's new cards are tomorrow's reviews."
+        ] }
+      ]
+    },
+    {
+      "topic": "retrieval",
+      "summary": "Why pulling answers out of memory beats reading them again.",
+      "blocks": [
+        { "h": "The testing effect" },
+        { "p": "Retrieving an answer from memory is not just a check on learning: it {{retrieval-does|strengthens the memory itself}}. This is the {{testing-effect|testing effect}}, and practising it on purpose is called retrieval practice." },
+        { "p": "In Roediger & Karpicke ({{rk-year|2006}}), students who reread a passage did better on a test {{rk-short|5 minutes}} later, but students who had been tested on it did better after {{rk-long|2 days and 1 week}}." },
+        { "note": "Rereading feels productive because the text becomes familiar. That fluency means you can {{fluency-means|recognize}} the material, not that you can recall it with the book closed.", "kind": "trap" },
+        { "h": "Recall vs recognition" },
+        { "table": {
+          "head": ["", "Recognition", "Recall"],
+          "rows": [
+            ["What you see", "the answer among options", "{{recall-sees|only the question}}"],
+            ["Effort", "lower", "higher"],
+            ["As practice", "weaker", "{{recall-practice|stronger}}"]
+          ]
+        } },
+        { "note": "Turn on recall mode to hide the options until you've answered in your head. Leave it off for questions marked as needing options to make sense, such as \"Which of these statements…\".", "kind": "howto" },
+        { "h": "One review, step by step" },
+        { "diagram": "flowchart LR\n  Q[\"Read the question\"] --> T[\"Answer from memory\"]\n  T --> R[\"Reveal\"]\n  R --> G[\"Grade yourself honestly\"]\n  G --> S[\"Scheduler sets the next date\"]" },
+        { "note": "A wrong attempt is not wasted. Trying, then seeing the right answer, still teaches you more than reading the answer straight away.", "kind": "why" },
+        { "list": [
+          "Close the book before you test yourself.",
+          "Grade honestly: a lucky guess is not a Good.",
+          "Use the misses: they show you exactly what to work on next."
+        ] }
+      ]
+    }
+  ]
+}
