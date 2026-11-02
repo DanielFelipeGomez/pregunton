@@ -4,7 +4,7 @@ A small spaced-repetition quiz app that you set up and shape with Claude Code. Y
 
 It's plain Node with no dependencies: no `npm install`, no build step, no account. Your courses and progress are JSON files in a folder you choose, for example next to your notes.
 
-![A question from the tour course, answered: each option says why it's right or wrong, and four buttons decide when it comes back](docs/study.png)
+![A walk through the app: two questions answered (one right, one wrong) with every option explained, a cheat sheet with hidden facts revealed, the Progress tab, and Settings switching to a dark theme with a violet accent](docs/tour.gif)
 
 ## Get started
 
