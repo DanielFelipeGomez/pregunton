@@ -29,9 +29,13 @@ Prefer doing it by hand? Clone the repo, run `node server.js` and open http://lo
 
 The tour course, *Learning how to learn*, uses all of these to explain the ideas behind the app: spacing, retrieval practice, interleaving and how the scheduler works.
 
-| Cheat sheets | Progress |
-|---|---|
-| ![A cheat sheet: some facts revealed, green if you knew them and red if not, others still hidden](docs/cheat-sheet.png) | ![The Progress tab: what's due, progress per topic, the coming week and how often you recalled versus recognised](docs/progress.png) |
+A cheat sheet, with some facts revealed (green if you knew them, red if not) and the rest still hidden:
+
+![A cheat sheet: some facts revealed, green if you knew them and red if not, others still hidden](docs/cheat-sheet.png)
+
+The Progress tab:
+
+![The Progress tab: what's due, progress per topic, the coming week and how often you recalled versus recognised](docs/progress.png)
 
 ## Making it yours
 
